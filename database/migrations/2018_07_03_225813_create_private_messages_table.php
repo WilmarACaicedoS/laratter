@@ -15,7 +15,13 @@ class CreatePrivateMessagesTable extends Migration
     {
         Schema::create('private_messages', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('conversation_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->string('message');
             $table->timestamps();
+
+            $table->foreign('conversation_id')->references('id')->on('conversations');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
